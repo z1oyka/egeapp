@@ -1,0 +1,235 @@
+package com.example.ege_app.screens
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.ColorFilter
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.ege_app.R
+import com.example.ege_app.ui.theme.GreyForText
+import com.example.ege_app.ui.theme.MyFont
+import com.example.ege_app.ui.theme.MydarkPurple
+
+@Composable
+fun SignIn(modifier: Modifier = Modifier) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = MaterialTheme.colorScheme.primary),
+
+        ) {
+        var textname = "Имя"
+        var textemail = "Электронная почта"
+        val textpassword = "Пароль"
+        var name by remember { mutableStateOf("") }
+        var email by remember { mutableStateOf("") }
+        var password by remember { mutableStateOf("") }
+        var passwordIsVisible by remember { mutableStateOf(false) }
+
+
+        Spacer(Modifier.height(80.dp))
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.padding(bottom = 16.dp)
+                .clip(shape = RoundedCornerShape(19.dp))
+                .background(color = MydarkPurple,)
+
+
+
+                .size(72.dp)
+
+
+
+        ) {
+            Image(
+                painter = painterResource(R.drawable.ic_graduation),
+                contentDescription = null
+            )
+        }
+
+        Text(
+            "ЕГЭ.Pocket",
+            fontSize = 30.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.secondary
+        )
+        Spacer(modifier = Modifier.height(180.dp))
+        OutlinedTextField(
+            value = name,
+            onValueChange = { name = it },
+            modifier = Modifier
+                .padding(bottom = 12.dp)
+                .height(58.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp), shape = RoundedCornerShape(20),
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                focusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                focusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                cursorColor = MaterialTheme.colorScheme.onTertiary
+
+            ),
+            placeholder = {
+                Text(
+                    textname,
+                    color = GreyForText,
+                    fontSize = 16.sp,
+                    fontFamily = MyFont
+                )
+            },
+            leadingIcon = {
+                Image(
+                    painter = painterResource(R.drawable.ic_profile),
+                    contentDescription = ""
+                )
+            }
+        )
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            modifier = Modifier
+                .padding(bottom = 12.dp)
+                .height(58.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp), shape = RoundedCornerShape(20),
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                focusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                focusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                cursorColor = MaterialTheme.colorScheme.onTertiary
+
+            ),
+            placeholder = {
+                Text(
+                    textemail,
+                    color = GreyForText,
+                    fontSize = 16.sp,
+                    fontFamily = MyFont
+                )
+            },
+            leadingIcon = {
+                Image(
+                    painter = painterResource(R.drawable.ic_mail),
+                    contentDescription = ""
+                )
+            }
+        )
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            modifier = Modifier
+                .padding(bottom = 20.dp)
+                .height(58.dp)
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp), shape = RoundedCornerShape(20),
+            colors = OutlinedTextFieldDefaults.colors(
+                unfocusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                focusedContainerColor = MaterialTheme.colorScheme.tertiary,
+                unfocusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                focusedBorderColor = MaterialTheme.colorScheme.onTertiary,
+                cursorColor = MaterialTheme.colorScheme.onTertiary
+
+            ),
+            visualTransformation = if (passwordIsVisible){
+                VisualTransformation.None
+
+            }
+            else{
+                PasswordVisualTransformation()},
+            placeholder = {
+                Text(
+                    textpassword,
+                    color = GreyForText,
+                    fontSize = 16.sp,
+                    fontFamily = MyFont
+                )
+            },
+            leadingIcon = {
+                Image(
+                    painter = painterResource(R.drawable.ic_lock),
+                    contentDescription = ""
+                )
+            },
+            trailingIcon = {
+                Image(
+                    painter = painterResource(if (passwordIsVisible)
+                        R.drawable.ic_eyeisvisible
+                    else
+                        R.drawable.ic_eye
+                    ),
+                    colorFilter = ColorFilter.tint(GreyForText),
+                    contentDescription = null,
+                    modifier = Modifier.clickable{passwordIsVisible = !passwordIsVisible}
+                )
+            }
+        )
+        Button(
+            onClick = {},
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(58.dp)
+                .padding(horizontal = 20.dp),
+            shape = RoundedCornerShape(14.dp),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MydarkPurple,
+                contentColor = MaterialTheme.colorScheme.secondary
+            )
+        ) {
+            Text(
+                "Войти",
+                fontSize = 16.sp,
+                fontFamily = MyFont,
+                color = MaterialTheme.colorScheme.secondary
+            )
+        }
+        Column(
+            modifier = Modifier
+                .padding(bottom = 77.dp)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Bottom,
+        ) {
+            Text(
+                "Зарегистрироваться",
+                color = MydarkPurple,
+                fontSize = 16.sp,
+                fontFamily = MyFont,
+                modifier = Modifier.clickable {})
+        }
+
+    }
+
+
+}

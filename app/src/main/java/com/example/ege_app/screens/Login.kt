@@ -35,8 +35,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ege_app.ui.theme.MydarkPurple
@@ -57,6 +60,7 @@ fun Login(modifier: Modifier = Modifier) {
         val textpassword = "Пароль"
         var email by remember { mutableStateOf("") }
         var password by remember { mutableStateOf("") }
+        var passwordIsVisible by remember { mutableStateOf(false) }
 
 
         Spacer(Modifier.height(80.dp))
@@ -85,7 +89,7 @@ fun Login(modifier: Modifier = Modifier) {
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.secondary
         )
-        Spacer(modifier = Modifier.height(120.dp))
+        Spacer(modifier = Modifier.height(180.dp))
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -133,6 +137,12 @@ fun Login(modifier: Modifier = Modifier) {
                 cursorColor = MaterialTheme.colorScheme.onTertiary
 
             ),
+            visualTransformation = if (passwordIsVisible){
+                VisualTransformation.None
+
+            }
+            else{
+                PasswordVisualTransformation()},
             placeholder = {
                 Text(
                     textpassword,
@@ -147,12 +157,18 @@ fun Login(modifier: Modifier = Modifier) {
                     contentDescription = ""
                 )
             },
-            trailingIcon = {
-                Image(
-                    painter = painterResource(R.drawable.ic_eye),
-                    contentDescription = null
-                )
-            }
+                trailingIcon = {
+                    Image(
+                        painter = painterResource(if (passwordIsVisible)
+                        R.drawable.ic_eyeisvisible
+                        else
+                        R.drawable.ic_eye
+                            ),
+                        colorFilter = ColorFilter.tint(GreyForText),
+                        contentDescription = null,
+                        modifier = Modifier.clickable{passwordIsVisible = !passwordIsVisible}
+                    )
+                }
         )
         Button(
             onClick = {},
@@ -167,9 +183,10 @@ fun Login(modifier: Modifier = Modifier) {
             )
         ) {
             Text(
-                "Зарегистрироваться",
+                "Войти",
                 fontSize = 16.sp,
-                fontFamily = MyFont
+                fontFamily = MyFont,
+                color = MaterialTheme.colorScheme.secondary
             )
         }
         Column(
@@ -180,7 +197,7 @@ fun Login(modifier: Modifier = Modifier) {
             verticalArrangement = Arrangement.Bottom,
         ) {
             Text(
-                "Войти",
+                "Зарегистрироваться",
                 color = MydarkPurple,
                 fontSize = 16.sp,
                 fontFamily = MyFont,

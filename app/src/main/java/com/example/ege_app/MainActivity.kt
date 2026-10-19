@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.ege_app.screens.Login
+import com.example.ege_app.screens.SignIn
 import com.example.ege_app.ui.theme.Ege_appTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Ege_appTheme{
-            Login()
+                SignIn()
 
             }
         }
